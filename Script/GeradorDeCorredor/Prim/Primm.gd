@@ -1,30 +1,18 @@
 extends GeradorCorredor2D
 
-var gerador_dungeon : DungeonGenerator2D
-
-func _ready() -> void:
-	
-	var pai : Node = get_parent()
-	if pai is not DungeonGenerator2D:
-		printerr("Erro! Node mal configurado")
-		return
-		
-	gerador_dungeon = pai
-
 ## Gerar caminhos entre as salas usando o Algoritmo de Primm
 func criar_caminho(pontos: Array[Vector2i]) -> void:
 	
 	var visitado : Array[Vector2i] = []
 	var restantes : Array[Vector2i] = pontos.duplicate()
-	var arestas : Array[Vector2i] = []
-	
+
 	var vertice_atual : Vector2i = restantes.pop_front()
 	visitado.append(vertice_atual)
 	
 	# Enquanto ainda tiver vertices (salas) para visitar
 	while restantes.size() > 0:
 	
-		var distancia_minima = 9999999
+		var distancia_minima = INF
 		var arestas_distancia_minima = []
 		
 		for vertice_visitada in visitado:

@@ -16,7 +16,6 @@ tamanho_dungeon = Vector2i(25, 25)
 tamanho_sala = Vector2i(320, 320)
 dungeons = Array[PackedScene]([ExtResource("2_q3hrf")])
 corredores = Array[PackedScene]([ExtResource("3_florb")])
-usar_cache = true
 dungeon_cache = ExtResource("4_15pkh")
 
 [node name="FreeCam" parent="." instance=ExtResource("2_v4ltf")]

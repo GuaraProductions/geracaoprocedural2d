@@ -1,28 +1,11 @@
 extends GeradorSala2D
 
 @export var raio: int = 2
-@export var num_chegagens_antes_de_rejeicao : int = 30
-
-var gerador_dungeon : DungeonGenerator2D
-
-func _ready() -> void:
-	
-	var pai : Node = get_parent()
-	if pai is not DungeonGenerator2D:
-		printerr("Erro! Node mal configurado")
-		return
-		
-	gerador_dungeon = pai
-
-func gerar_salas(tamanho_grid: Vector2i) -> Array[Vector2i]:
-	return _distribuir_salas_poisson_sampling(raio,tamanho_grid, num_chegagens_antes_de_rejeicao)
+@export var num_checagens_antes_de_rejeicao : int = 30
 
 ## Geração aleatória de pontos no mapa usando o Algoritmo do
 ## Fast Poisson disk sampling (https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf)
-func _distribuir_salas_poisson_sampling(raio: int, 
-										tamanho_grid: Vector2i, 
-										num_checagens_antes_de_rejeicao: int) -> Array[Vector2i]:
-	
+func gerar_salas(tamanho_grid: Vector2i) -> Array[Vector2i]:
 	# Pontos de fato gerados
 	var pontos: Array[Vector2i] = [] 
 	# Pontos que ainda precisam ser verificados
@@ -54,7 +37,7 @@ func _distribuir_salas_poisson_sampling(raio: int,
 			var posicao_candidato : Vector2i = \
 			 Vector2i(Vector2(ponto_atual) + direcao * randf_range(raio, 2*raio))
 		
-			if _poisson_disk_sampling_eh_valido(posicao_candidato, tamanho_grid, raio, pontos):
+			if _poisson_disk_sampling_eh_valido(posicao_candidato, tamanho_grid):
 				pontos.append(posicao_candidato)
 				pontos_ativos.append(posicao_candidato)
 				
@@ -71,9 +54,7 @@ func _distribuir_salas_poisson_sampling(raio: int,
 	
 ## Valida um ponto candidato a ser inserido no mapa
 func _poisson_disk_sampling_eh_valido(candidato: Vector2i, 
-									tamanho_grid: Vector2i, 
-									raio: int, 
-									pontos: Array[Vector2i]) -> bool:
+									tamanho_grid: Vector2i) -> bool:
 	
 	var eh_valido : bool = true
 	

@@ -1,5 +1,5 @@
 extends Node2D
-class_name DungeonGenerator2D
+class_name GeradorDungeon2D
 
 enum TipoCelula {
 	VAZIO,
@@ -41,13 +41,7 @@ func _ready() -> void:
 		pontos = gerador_de_salas.gerar_salas(tamanho_dungeon)
 	
 	#Geração dos caminhos
-	var tempo_inicio = Time.get_ticks_usec()
 	gerador_de_corredores.criar_caminho(pontos)
-	var tempo_fim = Time.get_ticks_usec()
-	
-	var tempo_total : float = (tempo_fim - tempo_inicio) / 1000000.0
-	
-	print("tempo total: %f" % tempo_total)
 	
 	_imprimir_dungeon_texto()
 

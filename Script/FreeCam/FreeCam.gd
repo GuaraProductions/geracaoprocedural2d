@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var SPEED = 300.0
 @onready var camera = $Camera2D
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
