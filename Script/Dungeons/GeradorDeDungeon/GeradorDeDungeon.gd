@@ -7,29 +7,35 @@ enum TipoCelula {
 	CORREDOR
 }
 
+## Quantidade de salas presentes em uma cena
+@export var tamanho_dungeon : Vector2i
 @export var gerador_de_salas : GeradorSala2D
 @export var gerador_de_corredores : GeradorCorredor2D
 #@export var tipo_geracao_salas : TipoGeracaoDeSalas
-@export_category("Dimensões")
-## Quantidade de salas presentes em uma cena
-@export var tamanho_dungeon : Vector2i
-## Indica o tamanho de cada sala (dungeon e corredor)
-@export var tamanho_sala : Vector2i
 ## Cenas que serão usadas como salas (Precisam ser do tipo DungeonRoom)
 @export_category("Cenas")
-@export var dungeons : Array[PackedScene]
+@export var dungeons : DungeonCollection2D
 ## Cenas que serão usadas como corredores (Precisam ser do tipo DungeonRoom)
-@export var corredores : Array[PackedScene]
+@export var corredores : DungeonCollection2D
+## Indica o tamanho de cada sala (dungeon e corredor)
+@export var tamanho_sala : Vector2i
 ## Matrix 2D representando a dungeon
 @export_category("Cache")
 @export var usar_cache : bool
 @export var dungeon_cache : DungeonCache
+@export_category("Debug")
+@export var executar_no_ready : bool = false
+@export var executar_no_editor : bool = false
 
 ## Estrutura auxiliar para guardar coordenadas de determinadas salas
 var dungeon_grid : Array = []
 	
 func _ready() -> void:
-
+	if executar_no_ready:
+		gerar_dungeon()
+	
+func gerar_dungeon() -> void:
+	
 	_iniciar_dungeon_grid()
 	
 	# Geração dos pontos
@@ -68,11 +74,11 @@ func _criar_todas_as_salas(pontos: Array) -> void:
 			
 ## Spawnar sala em uma posicao do mapa. Todas as salas são configuradas
 ## De acordo com a coordenada que elas tem dentro do Grid
-func criar_sala(posicao: Vector2, direcao: Vector2i = Vector2i.ZERO) -> DungeonRoom:
+func criar_sala(posicao: Vector2, direcao: Vector2i = Vector2i.ZERO) -> Dungeon2D:
 	
 	dungeon_grid[posicao.x][posicao.y] = TipoCelula.SALA
 	
-	var dungeon_sala_instancia : DungeonRoom = dungeons.pick_random().instantiate()
+	var dungeon_sala_instancia : Dungeon2D = dungeons.get_dungeon_aleatoria()
 	dungeon_sala_instancia.name = "%d-%d" % [posicao.x, posicao.y]
 	add_child(dungeon_sala_instancia)
 	
@@ -88,11 +94,11 @@ func criar_sala(posicao: Vector2, direcao: Vector2i = Vector2i.ZERO) -> DungeonR
 	
 ## Spawnar corredor em uma posicao do mapa. Todas as salas são configuradas
 ## De acordo com a coordenada que elas tem dentro do Grid
-func criar_corredor(posicao: Vector2) -> DungeonRoom:
+func criar_corredor(posicao: Vector2) -> Dungeon2D:
 	
 	dungeon_grid[posicao.x][posicao.y] = TipoCelula.CORREDOR
 	
-	var corredor_sala_instancia : DungeonRoom = corredores[0].instantiate()
+	var corredor_sala_instancia : Dungeon2D = corredores.get_dungeon_aleatoria()
 	
 	corredor_sala_instancia.name = "%d-%d" % [posicao.x, posicao.y]
 	add_child(corredor_sala_instancia)
@@ -105,7 +111,7 @@ func criar_corredor(posicao: Vector2) -> DungeonRoom:
 	return corredor_sala_instancia
 	
 ## Acessar dungeon em especifico de acordo com a coordenada
-func get_dungeon_em(p: Vector2i) -> DungeonRoom:
+func get_dungeon_em(p: Vector2i) -> Dungeon2D:
 	var nome : String =  "%d-%d" % [p.x, p.y]
 	return get_node_or_null(nome)
 		

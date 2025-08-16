@@ -1,5 +1,5 @@
 extends Node2D
-class_name DungeonRoom
+class_name Dungeon2D
 
 @export var tamanho_rect : ColorRect
 var tamanho_sala : Vector2

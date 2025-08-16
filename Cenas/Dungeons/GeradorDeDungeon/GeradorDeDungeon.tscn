@@ -1,22 +1,35 @@
-[gd_scene load_steps=8 format=3 uid="uid://clrga4owtdo4r"]
+[gd_scene load_steps=11 format=3 uid="uid://clrga4owtdo4r"]
 
 [ext_resource type="Script" uid="uid://1aap0ik5icij" path="res://Script/Dungeons/GeradorDeDungeon/GeradorDeDungeon.gd" id="1_xbiru"]
 [ext_resource type="PackedScene" uid="uid://pdia42ln8fru" path="res://Cenas/Dungeons/Sala/Dungeon1.tscn" id="2_q3hrf"]
 [ext_resource type="PackedScene" uid="uid://c0sqarall24q2" path="res://Cenas/FreeCam/FreeCam.tscn" id="2_v4ltf"]
 [ext_resource type="PackedScene" uid="uid://cvlvr0tetdgfi" path="res://Cenas/Dungeons/Corredor/Dungeon2.tscn" id="3_florb"]
+[ext_resource type="Script" uid="uid://b11gk51253y5m" path="res://Script/Dungeons/Collection/DungeonCollection.gd" id="3_ulpie"]
 [ext_resource type="Resource" uid="uid://dm76aot6djh1l" path="res://dungeon_cache.tres" id="4_15pkh"]
 [ext_resource type="PackedScene" uid="uid://db38hhe5dibpw" path="res://Cenas/GeradorSalas/Poisson/PoissonDiskSampling.tscn" id="6_qbh5p"]
 [ext_resource type="PackedScene" uid="uid://bgetkdpre5wfq" path="res://Cenas/GeradorDeCorredor/Primm/Primm.tscn" id="7_ulpie"]
 
+[sub_resource type="Resource" id="Resource_ccrug"]
+script = ExtResource("3_ulpie")
+cenas = Array[PackedScene]([ExtResource("2_q3hrf")])
+metadata/_custom_type_script = "uid://b11gk51253y5m"
+
+[sub_resource type="Resource" id="Resource_aya2r"]
+script = ExtResource("3_ulpie")
+cenas = Array[PackedScene]([ExtResource("3_florb")])
+metadata/_custom_type_script = "uid://b11gk51253y5m"
+
 [node name="GeradorDeDungeon" type="Node2D" node_paths=PackedStringArray("gerador_de_salas", "gerador_de_corredores")]
 script = ExtResource("1_xbiru")
+tamanho_dungeon = Vector2i(25, 25)
 gerador_de_salas = NodePath("PoissonDiskSampling")
 gerador_de_corredores = NodePath("Primm")
-tamanho_dungeon = Vector2i(25, 25)
+dungeons = SubResource("Resource_ccrug")
+corredores = SubResource("Resource_aya2r")
 tamanho_sala = Vector2i(320, 320)
-dungeons = Array[PackedScene]([ExtResource("2_q3hrf")])
-corredores = Array[PackedScene]([ExtResource("3_florb")])
+usar_cache = true
 dungeon_cache = ExtResource("4_15pkh")
+executar_no_ready = true
 
 [node name="FreeCam" parent="." instance=ExtResource("2_v4ltf")]
 SPEED = 1000.0

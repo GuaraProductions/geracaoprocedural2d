@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="DungeonCache" load_steps=2 format=3 uid="uid://dm76aot6djh1l"]
 
-[ext_resource type="Script" uid="uid://bqpep3bmjimg2" path="res://Cenas/Dungeons/DungeonCache.gd" id="1_d53we"]
+[ext_resource type="Script" uid="uid://bqpep3bmjimg2" path="res://Cenas/Dungeons/Cache/DungeonCache.gd" id="1_d53we"]
 
 [resource]
 script = ExtResource("1_d53we")

@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var dungeon_1: DungeonRoom = $Dungeon1
+@onready var dungeon_1: Dungeon2D = $Dungeon1
 
 func _ready() -> void:
 	
