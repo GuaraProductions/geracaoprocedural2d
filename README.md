@@ -11,4 +11,8 @@ para ver os resultados.
 - Primm (Geração de Corredores)
 - [Fast Poisson Disk Sampling](https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf) (Geração de salas)
 
+## Material de terceiros
+
+- [Tiny Dungeon do Kenney](https://kenney.nl/assets/tiny-dungeon)
+
 O algoritmo é altamente customizável e permite implementar outras extratégias para geração de salas e de corredores
