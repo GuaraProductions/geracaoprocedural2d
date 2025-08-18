@@ -8,6 +8,7 @@ enum TipoCelula {
 }
 
 ## Quantidade de salas presentes em uma cena
+@export var executar_no_ready : bool = false
 @export var tamanho_dungeon : Vector2i
 @export var gerador_de_salas : GeradorSala2D
 @export var gerador_de_corredores : GeradorCorredor2D
@@ -24,7 +25,6 @@ enum TipoCelula {
 @export var usar_cache : bool
 @export var dungeon_cache : DungeonCache
 @export_category("Debug")
-@export var executar_no_ready : bool = false
 @export var executar_no_editor : bool = false
 
 ## Estrutura auxiliar para guardar coordenadas de determinadas salas
