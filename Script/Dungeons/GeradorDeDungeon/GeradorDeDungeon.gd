@@ -26,6 +26,7 @@ enum TipoCelula {
 @export var dungeon_cache : DungeonCache
 @export_category("Debug")
 @export var executar_no_editor : bool = false
+@export var imprimir_dungeon_no_terminal : bool = false
 
 ## Estrutura auxiliar para guardar coordenadas de determinadas salas
 var dungeon_grid : Array = []
@@ -49,7 +50,8 @@ func gerar_dungeon() -> void:
 	#Geração dos caminhos
 	gerador_de_corredores.criar_caminho(pontos)
 	
-	_imprimir_dungeon_texto()
+	if imprimir_dungeon_no_terminal:
+		_imprimir_dungeon_texto()
 
 
 ## Iniciar estrutura auxiliar da geração de dungeons
